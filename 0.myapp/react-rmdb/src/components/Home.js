@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 // API
-import API from "../API";
+// import API from "../API";
 // Config
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../config";
 // Components
 import HeroImage from "./HeroImage";
 import Grid from "./Grid";
+import Thumb from "./Thumb";
 // Hook
 import { useHomeFetch } from "../hook/usdHomeFetch";
 // Image
@@ -54,8 +55,20 @@ const Home = () => {
       ) : null}
       <Grid header='Popular Movies' >
       {state.results.map(movie => (
-        <div key={movie.id}>{movie.title}</div>
+        // <div key={movie.id}>{movie.title}</div>,
+        <Thumb
+          key={movie.id}
+          clickable={true}
+          image={
+            movie.poster_path
+              ? IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path // Old way字符串拼接
+              : NoImage
+          }
+          movieId = {movie.id}
+          >
+            </Thumb>
       ))}
+        
 
       </Grid>
     </div>
