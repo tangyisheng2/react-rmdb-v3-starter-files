@@ -9,6 +9,7 @@ import Grid from "./Grid";
 import Thumb from "./Thumb";
 import Spinner from "./Spinner";
 import SearchBar from "./SearchBar";
+import Button from "./Button";
 // Hook
 import { useHomeFetch } from "../hook/usdHomeFetch";
 // Image
@@ -57,7 +58,11 @@ const Home = () => {
         ></HeroImage>
       ) : null}
       <SearchBar setSearchTerm={setSearchTerm}></SearchBar>
-      <Grid header={searchTerm? 'Search Result' : "Popular Movies" /* Header of grids */}>  
+      <Grid
+        header={
+          searchTerm ? "Search Result" : "Popular Movies" /* Header of grids */
+        }
+      >
         {state.results.map((movie) => (
           // <div key={movie.id}>{movie.title}</div>
           <Thumb
@@ -72,7 +77,10 @@ const Home = () => {
           ></Thumb>
         ))}
       </Grid>
-      <Spinner></Spinner>
+      {loading && <Spinner></Spinner>}
+      {state.page < state.total_pages && !loading && (
+        <Button text="Load More"></Button>
+      )}
     </div>
   );
 };
