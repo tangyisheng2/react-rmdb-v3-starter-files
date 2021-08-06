@@ -65,9 +65,8 @@ const Home = () => {
                 ? IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path // Old way字符串拼接
                 : NoImage
             }
-            movieId = {movie.id}
-            >
-              </Thumb>
+            movieId={movie.id}
+          ></Thumb>
         ))}
       </Grid>
       <Spinner></Spinner>
