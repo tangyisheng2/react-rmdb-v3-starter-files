@@ -44,9 +44,13 @@ const Home = () => {
   // }, []);
   // Move to hook/useHomeFetch.js
 
-  const { state, loading, error, searchTerm, setSearchTerm } = useHomeFetch();
+  const { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore } =
+    useHomeFetch();
 
   console.log(state);
+
+  if (error) return <div>Something went wrong</div>; // Error Message
+
   return (
     <div>
       {!searchTerm && // Now showing HeroImage when there is a search term
@@ -79,7 +83,7 @@ const Home = () => {
       </Grid>
       {loading && <Spinner></Spinner>}
       {state.page < state.total_pages && !loading && (
-        <Button text="Load More"></Button>
+        <Button text="Load More" callback={() => setIsLoadingMore(true)}></Button>
       )}
     </div>
   );

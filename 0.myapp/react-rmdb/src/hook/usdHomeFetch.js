@@ -10,10 +10,11 @@ const InitialState = {
 };
 
 export const useHomeFetch = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // Search Button
   const [state, setState] = useState(InitialState);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   console.log(searchTerm);
 
@@ -34,10 +35,23 @@ export const useHomeFetch = () => {
     }
     setLoading(false);
   };
+
+
+
   // Initial render
   useEffect(() => {
     setState(InitialState); // Will wipe out the state
     fetchMovies(1, searchTerm);
   }, [searchTerm]);
-  return { state, loading, error, searchTerm, setSearchTerm };
+  
+
+  // Load More
+  useEffect(() =>{
+    if (!isLoadingMore) return
+    fetchMovies(state.page + 1, searchTerm)
+    setIsLoadingMore(false)
+  }, [isLoadingMore, searchTerm, state.page])
+
+  
+  return { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore };
 };
