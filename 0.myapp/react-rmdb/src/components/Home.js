@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 // API
 // import API from "../API";
 // Config
@@ -7,6 +7,7 @@ import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../config";
 import HeroImage from "./HeroImage";
 import Grid from "./Grid";
 import Thumb from "./Thumb";
+import Spinner from "./Spinner";
 // Hook
 import { useHomeFetch } from "../hook/usdHomeFetch";
 // Image
@@ -53,24 +54,23 @@ const Home = () => {
           text={state.results[0].overview}
         ></HeroImage>
       ) : null}
-      <Grid header='Popular Movies' >
-      {state.results.map(movie => (
-        // <div key={movie.id}>{movie.title}</div>,
-        <Thumb
-          key={movie.id}
-          clickable={true}
-          image={
-            movie.poster_path
-              ? IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path // Old way字符串拼接
-              : NoImage
-          }
-          movieId = {movie.id}
-          >
-            </Thumb>
-      ))}
-        
-
+      <Grid header="Popular Movies">
+        {state.results.map((movie) => (
+          // <div key={movie.id}>{movie.title}</div>
+          <Thumb
+            key={movie.id}
+            clickable={true}
+            image={
+              movie.poster_path
+                ? IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path // Old way字符串拼接
+                : NoImage
+            }
+            movieId = {movie.id}
+            >
+              </Thumb>
+        ))}
       </Grid>
+      <Spinner></Spinner>
     </div>
   );
 };
