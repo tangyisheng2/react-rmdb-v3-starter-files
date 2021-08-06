@@ -43,12 +43,13 @@ const Home = () => {
   // }, []);
   // Move to hook/useHomeFetch.js
 
-  const { state, loading, error, setSearchTerm } = useHomeFetch();
+  const { state, loading, error, searchTerm, setSearchTerm } = useHomeFetch();
 
   console.log(state);
   return (
     <div>
-      {state.results[0] ? (
+      {!searchTerm && // Now showing HeroImage when there is a search term
+      state.results[0] ? ( // Show image when fetch a result
         <HeroImage
           image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[0].backdrop_path}`}
           title={state.results[0].original_title}
@@ -56,7 +57,7 @@ const Home = () => {
         ></HeroImage>
       ) : null}
       <SearchBar setSearchTerm={setSearchTerm}></SearchBar>
-      <Grid header="Popular Movies">
+      <Grid header={searchTerm? 'Search Result' : "Popular Movies" /* Header of grids */}>  
         {state.results.map((movie) => (
           // <div key={movie.id}>{movie.title}</div>
           <Thumb
